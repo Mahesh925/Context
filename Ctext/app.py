@@ -109,7 +109,6 @@ summarizer = pipeline("summarization", model = "facebook/bart-large-cnn", device
 def summarize_text(text):
     max_length = 1024  
     if len(text) > max_length:
-        # split text into chunks and summarize
         text_chunks = [text[i:i+max_length] for i in range(0, len(text), max_length)]
         summarized_chunks = [summarizer(chunk)[0]['summary_text'] for chunk in text_chunks]
         return " ".join(summarized_chunks)
@@ -132,7 +131,7 @@ def generate_ollama_explanation(text1, text2, similarity_score):
     Document 2:
     {summarized_text2}
 
-    Compare the first and second documents based on their similarity score. If the score is above 0.89, explain that the second paper is highly similar to the first, using the same techniques, and one paper is likely redundant. If the score is between 0.60 and 0.89, explain that the second paper is moderately similar, covering similar methods or techniques but with some differences. If the score is below 0.60, explain that the two papers are not similar, pointing out significant differences in their methods or approaches. Do not include unnecessary point like using phrases like 'I think' or 'I concur',avoid any phrases where you talk like you are doing it, just get to the point and proceed with the two papers or documents. Also do not mention citations. Provide a clear and medium para explanation without any creative or personal language and stick to what techniques or methods were used in the paper that makes them same or different please. if the similarity score is over 0.89 Conclude with: 'The [first/second] paper is highly similar to the other paper and it seems like it is a part of that paper'. if the similarity score is below 0.85 and over 0.70 conclude with:' The [first/second] paper is slighly similar to the other paper but uses different methodologies' and if the similarity score is below 0.60 say that the two papers are not similar at all.
+    Compare the first and second documents based on their similarity score. Explain the two documents along with their technologies and generate a explanation of how similar they are.
     """
 
     payload = {
@@ -209,13 +208,13 @@ def compare_database():
     papers = collection.find()
 
     for paper in papers:
-        paper_abstract = paper['abstract']  # Assuming the abstract field is in your documents
+        paper_abstract = paper['abstract']
         similarity_score = calculate_similarity(input_text, paper_abstract, f1_model, f1_tokenizer)
         
        
         if similarity_score > 0.20:
             similarity_results.append({
-                'title': paper.get('title', 'No Title'),  # Safely get title
+                'title': paper.get('title', 'No Title'), 
                 'similarity_score': similarity_score
             })
 
@@ -239,7 +238,7 @@ def compare_user_database():
         papers = user_collection.find()
 
         for paper in papers:
-            paper_abstract = paper.get('abstract', '')  # Safely get abstract
+            paper_abstract = paper.get('abstract', '')
             similarity_score = calculate_similarity(input_text, paper_abstract, f1_model, f1_tokenizer)
 
             if similarity_score > 0.75:
