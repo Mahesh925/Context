@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Similarity Engine</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eaeaea; 
+        }
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .box {
+            display: inline-block;
+            width: 30%; 
+            padding: 30px; 
+            margin: 15px; 
+            background-color: #007bff;
+            color: white;
+            border-radius: 10px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            cursor: pointer;
+        }
+        .box:hover {
+            transform: scale(1.05);
+            background-color: #0056b3;
+        }
+        .box h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>CONTEXT: TEXT SIMILARITY ENGINE</h1>
+        
+        <div class="box" onclick="window.location.href='/text_similarity'">
+            <h2>Compare Texts</h2>
+            <p>Check the similarity between two pieces of text.</p>
+        </div>
+        <div class="box" onclick="window.location.href='/document_similarity'">
+            <h2>Compare Documents</h2>
+            <p>Upload and compare documents for similarity.</p>
+        </div>
+        <div class="box" onclick="window.location.href='/database_similarity'">
+            <h2>Compare with Databases</h2>
+            <p>Add papers and compare abstracts for similarity.</p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Document Similarity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f9fc;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin: 15px 0 5px;
+        }
+
+        input[type="file"] {
+            border: 1px solid #d1d9e6;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            background-color: #f8faff;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #d1d9e6;
+            border-radius: 5px;
+            background-color: #e9f5ff;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .home-button {
+            position: fixed; /* Fixed positioning to ensure it remains at the top-left */
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #28a745; /* Green color */
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Animation */
+        }
+
+        .home-button:hover {
+            background-color: #218838; /* Darker green */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="home-button">Home</a>
+    <div class="container">
+        <h1>Compare Document Similarity</h1>
+        <form action="/compare_documents" method="post" enctype="multipart/form-data">
+            <label for="document1">Upload Document 1:</label>
+            <input type="file" name="document1" id="document1" required>
+            <label for="document2">Upload Document 2:</label>
+            <input type="file" name="document2" id="document2" required>
+            <button type="submit">Compare</button>
+        </form>
+            <div class="result">
+                <h2>Similarity Score:</h2>
+                <p>{{ similarity_score }}</p>
+                <p><strong>Explanation:</strong> {{ explanation }}</p>
+            </div>
+    </div>
+</body>
+</html>

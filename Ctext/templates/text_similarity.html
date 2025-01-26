@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Similarity Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eaeaea; /* Soft background color */
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in;
+            position: relative; /* To position the Home button */
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px; /* Increased height for a larger text area */
+            margin-bottom: 20px;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #007bff; /* Changed border color */
+            border-radius: 5px;
+            resize: none; /* Prevent resizing */
+            transition: border-color 0.3s ease; /* Smooth transition */
+        }
+        textarea:focus {
+            border-color: #0056b3; /* Darker border on focus */
+            outline: none; /* Remove outline */
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            font-size: 20px; /* Increased font size */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform for animation */
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 24px; /* Increased font size for result */
+            text-align: center;
+        }
+        .home-button {
+            position: absolute; /* Positioning to top left */
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #28a745; /* Green color */
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Animation */
+        }
+        .home-button:hover {
+            background-color: #218838; /* Darker green */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="/" class="home-button">Home</a> <!-- Home button in top left -->
+        <h1>Text Similarity Checker</h1>
+
+        <form method="POST" action="/predict">
+            <label for="text1">Enter first text:</label>
+            <textarea id="text1" name="text1" placeholder="Enter the first academic text" required></textarea>
+
+            <label for="text2">Enter second text:</label>
+            <textarea id="text2" name="text2" placeholder="Enter the second academic text" required></textarea>
+
+            <button type="submit">Compare Texts</button>
+        </form>
+
+        {% if similarity_score is not none %}
+            <div class="result">
+                <h2>Similarity Score: {{ similarity_score }}</h2>
+                <p>Interpretation: A score closer to 1 means the texts are very similar, and closer to 0 means they are different.</p>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
