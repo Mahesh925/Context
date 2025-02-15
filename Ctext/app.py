@@ -178,10 +178,6 @@ def database_similarity():
     return render_template('database_similarity.html', similarity_results=None)
 
 
-traditional_model = BertModel.from_pretrained('bert-base-uncased')
-traditional_model.eval()  
-traditional_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-
 #database add
 @app.route('/add_paper', methods=['POST'])
 def add_paper():
